@@ -11,8 +11,14 @@ const useInputStyles = createUseStyles({
         border: '1px solid transparent',
         fontSize: '40px',
         borderRadius: '8px',
+        textAlign: 'center',
         borderColor: props => props?.error ? 'FF3838' : '#313131',
-        color: props => props?.error ? 'FF3838' : 'black'
+        color: props => props?.error ? 'FF3838' : 'black',
+
+        '&::-webkit-outer-spin-button,&::-webkit-inner-spin-button': {
+            '-webkit-appearance': 'none',
+            margin: 0
+        }
     }
 })
 
