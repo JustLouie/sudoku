@@ -1,5 +1,5 @@
 import React from 'react'
-import * as R from 'radma'
+import * as R from 'ramda'
 import { createUseStyles } from 'react-jss'
 
 const useInputStyles = createUseStyles({
@@ -10,8 +10,9 @@ const useInputStyles = createUseStyles({
         backgroundColor: 'rgba(255, 255, 255, 0.05)',
         border: '1px solid transparent',
         fontSize: '40px',
-        borderColor: props => props.error ? 'FF3838' : '#313131',
-        color: props => props.erro ? 'FF3838' : 'black'
+        borderRadius: '8px',
+        borderColor: props => props?.error ? 'FF3838' : '#313131',
+        color: props => props?.error ? 'FF3838' : 'black'
     }
 })
 
@@ -35,7 +36,7 @@ const Input = (props) => {
         return <RadioInput {...props} />
     }
 
-    retrun (
+    return (
         <input className={styles.basicInput} {...R.omit(['className'], props)} />
     )
 }
