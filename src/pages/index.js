@@ -1,7 +1,7 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import { Input, Button } from '../components/Form'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 const useIndexStyles = createUseStyles({
   wrapper: {
@@ -18,16 +18,31 @@ const useIndexStyles = createUseStyles({
     gridRowGap: '44px' 
   },
   sudoku: {
+    width: '100%',
     gridArea: 'sudoku',
-    maxWidth: '980px',
+    maxWidth: '550px',
     display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gridGap: '24px'
+    gridTemplateColumns: '1fr',
+    '@media screen and (min-width: 1024px)': {
+      maxWidth: '780px'
+    }
   },
   sudokuSquare: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 100px)',
-    gridGap: '4px'
+    width: '100%',
+    display: 'flex',
+    gap: '4px',
+    '&:nth-child(3n + 1)': {
+      marginTop: '20px'
+    },
+    '& input': {
+      width:'50px',
+      '@media screen and (min-width: 1024px)': {
+        width:'70px',
+      },
+      '&:nth-child(3n + 1)': {
+        marginLeft: '20px'
+      }
+    }
   },
   logo: {
     gridArea: 'logo'
@@ -39,11 +54,34 @@ const useIndexStyles = createUseStyles({
 
 const GenerateSudoku = (props) => {
   const styles = useIndexStyles()
+  const dispatch = useDispatch()
   return props.template.map((t, i) => (
     <div key={i} className={styles.sudokuSquare}>
         {
           t.map((t1, j) => (
-            <Input type="number" max="1" key={j} disabled={t1 !== 0} />
+            
+            <Input 
+              type="number"
+              max="1" key={j}
+              value={t1.value !== 0 ? t1.value : ''}
+              onChange={(value) => dispatch({
+                type: 'ON_CELL_CHANGE',
+                payload: {
+                  x: i,
+                  y: j,
+                  value
+                }
+              })}
+              disabled={t1.prefilled}
+              prefilled={t1.prefilled}
+              error={t1.error}
+              restriction={(value) => {
+                if (value.length > 1 || value === '0') {
+                  return false
+                }
+                return true
+              }}
+            />
           ))
         }
     </div>
@@ -54,7 +92,7 @@ const IndexPage = () => {
   const mainState = useSelector(state => state.main)
   const styles = useIndexStyles()
 
-  const template = mainState?.sudoku?.template
+  const template = mainState?.sudoku?.generated
 
   return (
     <div className={styles.wrapper}>
