@@ -13,6 +13,7 @@ const useInputStyles = createUseStyles({
         textAlign: 'center',
         borderColor: props => props?.error ? '#FF3838' : '#313131',
         color: props => props?.error ? '#FF3838' : props.prefilled ? 'black' : 'blue',
+        pointerEvents: props => props.prefilled ? 'none' : 'unset',
 
         '&::-webkit-outer-spin-button,&::-webkit-inner-spin-button': {
             '-webkit-appearance': 'none',

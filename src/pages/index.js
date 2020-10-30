@@ -80,7 +80,6 @@ const GenerateSudoku = (props) => {
                   value
                 }
               })}
-              disabled={t1.prefilled}
               prefilled={t1.prefilled}
               error={t1.error}
               restriction={(value) => {
