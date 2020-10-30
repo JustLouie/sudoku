@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'src/components/Form'
+import { Button } from '../Form'
 import { createUseStyles } from 'react-jss'
 
 const useModalStyles = createUseStyles({
@@ -9,7 +9,10 @@ const useModalStyles = createUseStyles({
         position: 'fixed',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        zIndex: '99',
+        left: '0',
+        top: '0'
     },
     modalOverlay: {
         width: '100%',
@@ -20,8 +23,8 @@ const useModalStyles = createUseStyles({
     modalContent: {
         position: 'relative',
         zIndex: '2',
-        width: '80%',
-        height: '80%',
+        width: '60%',
+        height: '60%',
         backgroundColor: 'white',
         borderRadius: '4px',
         padding: '60px 73px',
@@ -34,11 +37,13 @@ const useModalStyles = createUseStyles({
         display: 'flex',
         alignItems: 'center',
 
-        'h2': {
+        '& h2': {
             textAlign: 'center',
             fontSize: '40px',
+            fontFamily: '"Poppins", sans-serif',
+            width: '100%'
         },
-        'button': {
+        '& button': {
             border: 'none',
             outline: 'none',
             background: 'none',
@@ -48,28 +53,34 @@ const useModalStyles = createUseStyles({
         }
     },
     modalFooter: {
-        
+        display: 'flex',
+        justifyContent: 'center'
     }
 })
 
 const Modal = (props) => {
+    const styles = useModalStyles()
+    const onComplete = () => {
+        props.onComplete()
+        props.onClose()
+    }
     return (
-        <div className="modal">
-            <div className={styles.modalOverlay}
-            <div className="modal-content">
-                <div className="modal=header">
+        <div className={styles.modal}>
+            <div className={styles.modalOverlay}></div>
+            <div className={styles.modalContent}>
+                <div className={styles.modalHeader}>
                     <h2>
                         { props.title }
                     </h2>
-                    <button className="close-modal">
+                    <button className="close-modal" onClick={props.onClose}>
 
                     </button>
                 </div>
-                <div classsName="modal-body">
-                    {...props.children}
+                <div classsName={styles.modalBody}>
+                    {props.children}
                 </div>
-                <div classname="modal-footer">
-                    <Button>
+                <div className={styles.modalFooter}>
+                    <Button onClick={onComplete}>
                         { props.footerButtonTitle }
                     </Button>
                 </div>
@@ -78,7 +89,7 @@ const Modal = (props) => {
     )
 }
 
-Moda.defaultProps = {
+Modal.defaultProps = {
     title: '',
     footerButtonTitle: 'Submit'
 }

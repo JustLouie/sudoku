@@ -1,5 +1,6 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
+import * as R from 'ramda'
 
 const useButtonStyles = createUseStyles({
     'blue-button': {
@@ -12,14 +13,15 @@ const useButtonStyles = createUseStyles({
         textAlign: 'center',
         color: 'white',
         fontSize: '24px',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        fontFamily: '"Poppins", sans-serif'
     }
 })
 
 const Button = (props) => {
     const styles = useButtonStyles()
     return (
-        <button className={styles[props.type]}>
+        <button className={styles[props.type]} {...R.omit(['type'], props)}>
             { props.children }
         </button>
     )

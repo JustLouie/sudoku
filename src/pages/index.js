@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import { Input, Button } from '../components/Form'
 import { useSelector, useDispatch } from 'react-redux'
+import DifficultyLevelsModal from '../modules/DifficultyLevelsModal'
 
 const useIndexStyles = createUseStyles({
+  '@import': [
+      'url(https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap)'
+  ],
+  
   wrapper: {
     boxSizing: 'border-box',
     width: '100%',
-    padding: '90px 67px 73px 67px',
+    padding: '20px 67px 73px 67px',
     display: 'grid',
     gridTemplateColumns: 'auto 1fr',
     gridTemplateAreas: `
@@ -36,6 +41,7 @@ const useIndexStyles = createUseStyles({
     },
     '& input': {
       width:'50px',
+      fontFamily: '"Poppins", sans-serif',
       '@media screen and (min-width: 1024px)': {
         width:'70px',
       },
@@ -48,13 +54,16 @@ const useIndexStyles = createUseStyles({
     gridArea: 'logo'
   },
   footer: {
-    gridArea: 'footer'
+    gridArea: 'footer',
+    display: 'flex',
+    justifyContent: 'center'
   }
 })
 
 const GenerateSudoku = (props) => {
   const styles = useIndexStyles()
   const dispatch = useDispatch()
+  
   return props.template.map((t, i) => (
     <div key={i} className={styles.sudokuSquare}>
         {
@@ -89,6 +98,7 @@ const GenerateSudoku = (props) => {
 }
 
 const IndexPage = () => {
+  const [showModal, setShowModal] = useState(false)
   const mainState = useSelector(state => state.main)
   const styles = useIndexStyles()
 
@@ -101,10 +111,13 @@ const IndexPage = () => {
         <GenerateSudoku template={template} />
       </div>
       <div className={styles.footer}>
-        <Button>
+        <Button onClick={() => setShowModal(true)}>
           Create new puzzle
         </Button>
       </div>
+      {
+        showModal ? <DifficultyLevelsModal onClose={() => setShowModal(false)} /> : null
+      }
     </div>
   )
 }

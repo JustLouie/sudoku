@@ -185,7 +185,7 @@ const getDifficultyNumber = (difficulty) => {
     return Math.floor((Math.random() * 4) + 2)
   }
   if (difficulty === 'hard') {
-    return Math.floor((Math.random() * 2) + 1)
+    return Math.floor((Math.random() * 3) + 1)
   }
 
   return Math.floor((Math.random() * 5) + 3)

@@ -1,9 +1,7 @@
-import { generateSudokuData, getColumn, isPossibleNumber } from '../utils'
+import { generateSudokuData, isPossibleNumber } from '../utils'
 
 const initialState = {
-    sudoku: {
-        ...generateSudokuData()
-    }
+    sudoku: generateSudokuData()
 }
 
 
@@ -34,11 +32,16 @@ const reducer = (state = initialState, action) => {
         case 'ON_CELL_CHANGE': {
             const { x, y, value } = action.payload
             const data = onCellChange(x, y, value, state.sudoku)
-            console.log(data)
             
             return {
                 ...state,
                 sudoku: data
+            }
+        }
+        case 'CHANGE_DIFFICULTY': {
+            return {
+                ...state,
+                sudoku: generateSudokuData(action.payload)
             }
         }
         default:

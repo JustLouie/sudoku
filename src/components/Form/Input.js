@@ -1,4 +1,4 @@
-import React, { useState }  from 'react'
+import React, { useState, useEffect }  from 'react'
 import * as R from 'ramda'
 import { createUseStyles } from 'react-jss'
 
@@ -22,12 +22,48 @@ const useInputStyles = createUseStyles({
         '@media screen and (min-width: 1024px)': {
             height: '70px'
         }
+    },
+    radioInput: {
+        display: 'flex',
+        gap: '38.33px',
+        alignItems: 'center',
+        '& i': {
+            width: '16px',
+            height: '16px',
+            borderRadius: '100%',
+            border: '2px solid #181EAD',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            '&::before': {
+                content: '""',
+                width: '10px',
+                height: '10px',
+                borderRadius: '100%',
+                backgroundColor: '#181EAD',
+                display: 'none'
+            }
+        },
+        '& input': {
+            display: 'none',
+            '&:checked + i': {
+                '&::before': {
+                    display: 'block'
+                }
+            }
+        },
+        '& span': {
+            fontSize: '24px',
+            fontFamily: '"Poppins", sans-serif',
+            fontWeight: '500'
+        }
     }
 })
 
 const RadioInput = (props) => {
+    const styles = useInputStyles(props)
     return (
-        <label className="radio-input">
+        <label className={styles.radioInput}>
             <input type="radio" {...R.omit(['type', 'children'], props)} />
             <i />
             <span>
@@ -42,6 +78,11 @@ const Input = (props) => {
     const styles = useInputStyles(props)
     const [ value, setValue ] = useState(props.value)
 
+    useEffect(() => {
+        setValue(props.value)
+    }, [props.value])
+
+    
     if (props.type === 'radio') {
         return <RadioInput {...props} />
     }
@@ -51,12 +92,11 @@ const Input = (props) => {
             className={styles.basicInput}
             value={value}
             onChange={(e) => {
-                if (props.onChange) {
-                    props.onChange(e.target.value)
-                }
-
                 if (props.restriction === undefined) {
                     setValue(e.target.value)
+                    if (props.onChange) {
+                        props.onChange(e.target.value)
+                    }
                 } else {
                     if (!props.restriction(e.target.value)) {
                         return false
