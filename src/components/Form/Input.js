@@ -94,12 +94,12 @@ const Input = (props) => {
             onChange={(e) => {
                 if (props.restriction === undefined) {
                     setValue(e.target.value)
-                    if (props.onChange) {
-                        props.onChange(e.target.value)
-                    }
                 } else {
                     if (!props.restriction(e.target.value)) {
                         return false
+                    }
+                    if (props.onChange) {
+                        props.onChange(e.target.value)
                     }
 
                     setValue(e.target.value)

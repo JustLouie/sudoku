@@ -9,6 +9,8 @@ const onCellChange = (x, y, value, data) => {
     const originalData = [...data.original]
     const generatedData = [...data.generated]
     const currentIndex = 9 * x + y
+    console.log(value)
+
 
     generatedData[x][y].value = parseInt(value)
     generatedData[x][y].error = false

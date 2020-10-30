@@ -63,6 +63,7 @@ const useIndexStyles = createUseStyles({
 const GenerateSudoku = (props) => {
   const styles = useIndexStyles()
   const dispatch = useDispatch()
+  console.log(props.template)
   return props.template.map((t, i) => (
     <div key={i} className={styles.sudokuSquare}>
         {
@@ -80,6 +81,7 @@ const GenerateSudoku = (props) => {
                   value
                 }
               })}
+              disabled={t1.prefilled}
               prefilled={t1.prefilled}
               error={t1.error}
               restriction={(value) => {
