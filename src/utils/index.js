@@ -46,7 +46,7 @@ export const isPossibleNumber = (cell, number, board) => {
 
 const isCorrectRow = (row, board) => {
 	let rightSequence = new Array(1,2,3,4,5,6,7,8,9)
-	let rowTemp= new Array()
+	let rowTemp= []
 	for (let i = 0; i < 9; i++) {
 		rowTemp[i] = board[row * 9 + i]
 	}
@@ -56,7 +56,7 @@ const isCorrectRow = (row, board) => {
 
 const isCorrectCol = (col, board) => {
 	let rightSequence = new Array(1,2,3,4,5,6,7,8,9)
-	let colTemp= new Array()
+	let colTemp= []
 	for (let i = 0; i < 9; i++) {
 		colTemp[i] = board[col + i * 9]
 	}
@@ -66,12 +66,12 @@ const isCorrectCol = (col, board) => {
 
 const isCorrectSquare = (square, board) => {
 	let rightSequence = new Array(1,2,3,4,5,6,7,8,9)
-	let squareTemp= new Array()
+	let squareTemp= []
 	for (let i=0; i < 9; i++) {
 		squareTemp[i] = board[Math.floor(square / 3) * 27 + i % 3 + 9 * Math.floor(i / 3) + 3 * (square % 3)]
 	}
 	squareTemp.sort()
-	return squareTemp.join() == rightSequence.join()
+	return squareTemp.join() === rightSequence.join()
 }
 
 const isSolvedboard = (board) => {
@@ -84,7 +84,7 @@ const isSolvedboard = (board) => {
 }
 
 const determinePossibleValues = (cell, board) => {
-	let possible = new Array()
+	let possible = []
 	for (let i = 1; i <= 9; i++) {
 		if (isPossibleNumber(cell,i,board)) {
 			possible.unshift(i)
@@ -99,10 +99,10 @@ const determineRandomPossibleValue = (possible, cell) => {
 }
 
 const scanboardForUnique = (board) => {
-	let possible = new Array()
+	let possible = []
 	for (let i = 0; i <= 80; i++) {
 		if (board[i] === 0) {
-			possible[i] = new Array()
+			possible[i] = []
 			possible[i] = determinePossibleValues(i, board)
 			if (possible[i].length === 0) {
 				return false
@@ -113,7 +113,7 @@ const scanboardForUnique = (board) => {
 }
 
 const removeAttempt = (attemptArray, number) => {
-	let newArray = new Array()
+	let newArray = []
 	for (let i = 0; i < attemptArray.length; i++) {
 		if (attemptArray[i] !== number) {
 			newArray.unshift(attemptArray[i])
@@ -137,14 +137,12 @@ const nextRandom = (possible) => {
 }
 
 const solve = (board) => {
-	const saved = new Array()
-	const savedboard = new Array()
-	let i = 0
+	const saved = []
+	const savedboard = []
 	let nextMove
 	let whatToTry
 	let attempt
 	while (!isSolvedboard(board)) {
-		i++
 		nextMove = scanboardForUnique(board)
 		if (nextMove === false) {
 			nextMove = saved.pop()
@@ -164,7 +162,7 @@ const solve = (board) => {
 
 const generateSudoku = (b) => {
   const board = JSON.parse(JSON.stringify(b))
-  const newBoard = new Array()
+  const newBoard = []
 
 
   for (let i = 0; i < 9; i++ ) {

@@ -4,7 +4,6 @@ import { createUseStyles } from 'react-jss'
 
 const useInputStyles = createUseStyles({
     basicInput: {
-        border: 'none',
         outline: 'none',
         height: '50px',
         backgroundColor: 'rgba(255, 255, 255, 0.05)',
