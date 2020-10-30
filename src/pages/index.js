@@ -63,7 +63,7 @@ const useIndexStyles = createUseStyles({
 const GenerateSudoku = (props) => {
   const styles = useIndexStyles()
   const dispatch = useDispatch()
-  
+  console.log(props.template)
   return props.template.map((t, i) => (
     <div key={i} className={styles.sudokuSquare}>
         {
