@@ -105,7 +105,7 @@ const Input = (props) => {
                     setValue(e.target.value)
                 }
             }}
-            {...R.omit(['className', 'value', 'onChange'], props)}
+            {...R.omit(['className', 'value', 'onChange', 'prefilled', 'restriction', 'error'], props)}
         />
     )
 }

@@ -63,15 +63,14 @@ const useIndexStyles = createUseStyles({
 const GenerateSudoku = (props) => {
   const styles = useIndexStyles()
   const dispatch = useDispatch()
-  console.log(props.template)
   return props.template.map((t, i) => (
     <div key={i} className={styles.sudokuSquare}>
         {
           t.map((t1, j) => (
-            
             <Input 
               type="number"
-              max="1" key={j}
+              max="1"
+              key={j}
               value={t1.value !== 0 ? t1.value : ''}
               onChange={(value) => dispatch({
                 type: 'ON_CELL_CHANGE',
