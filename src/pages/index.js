@@ -81,8 +81,8 @@ const GenerateSudoku = (props) => {
                   value
                 }
               })}
-              disabled={t1.prefilled}
               prefilled={t1.prefilled}
+              tabIndex='-1'
               error={t1.error}
               restriction={(value) => {
                 if (value.length > 1 || value === '0') {
